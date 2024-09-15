@@ -23,7 +23,7 @@ if(${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_BINARY_DIR})
 	message(FATAL_ERROR "Prevented in-tree build.")
 endif()
 
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.13)
 
 project(love)
 
@@ -186,7 +186,7 @@ Please see https://github.com/love2d/megasource
 	# required for enet
 	add_definitions(-D HAS_SOCKLEN_T)
 
-	find_package(SDL2 2.0.9 REQUIRED CONFIG COMPONENTS SDL2main)
+	find_package(SDL2 REQUIRED CONFIG COMPONENTS SDL2main)
 	target_include_directories(lovedep::SDL INTERFACE ${SDL2_INCLUDE_DIRS})
 	target_link_libraries(lovedep::SDL INTERFACE ${SDL2_LIBRARIES})
 
@@ -2172,7 +2172,11 @@ elseif("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
 
 	configure_file(platform/unix/love.desktop.in love.desktop @ONLY)
 
-	install(TARGETS love liblove)
+	install(TARGETS love liblove
+          RUNTIME DESTINATION bin    # For executable files
+          LIBRARY DESTINATION lib    # For shared libraries
+          ARCHIVE DESTINATION lib    # For static libraries
+        )
 	install(FILES platform/unix/love.6
 			DESTINATION ${CMAKE_INSTALL_MANDIR}/man1
 			RENAME love.1)

@@ -120,15 +120,17 @@ GlyphData *TrueTypeRasterizer::getGlyphDataForIndex(int index) const
 		throw love::Exception("TrueType Font glyph error: FT_Get_Glyph failed (0x%x)", err);
 
 	FT_Render_Mode rendermode = FT_RENDER_MODE_NORMAL;
+  /*
 	if (sdf)
 		rendermode = FT_RENDER_MODE_SDF;
-	else if (hinting == HINTING_MONO)
+    else if (hinting == HINTING_MONO) */
 		rendermode = FT_RENDER_MODE_MONO;
 
 	err = FT_Glyph_To_Bitmap(&ftglyph, rendermode, 0, 1);
 
 	if (err != FT_Err_Ok)
 	{
+    /*
 		if (rendermode == FT_RENDER_MODE_SDF)
 		{
 			err = FT_Glyph_To_Bitmap(&ftglyph, FT_RENDER_MODE_NORMAL, 0, 1);
@@ -136,6 +138,7 @@ GlyphData *TrueTypeRasterizer::getGlyphDataForIndex(int index) const
 				throw love::Exception("TrueType Font glyph error: FT_Glyph_To_Bitmap failed (0x%x)", err);
 		}
 		else
+    */
 		{
 			throw love::Exception("TrueType Font glyph error: FT_Glyph_To_Bitmap failed (0x%x)", err);
 		}

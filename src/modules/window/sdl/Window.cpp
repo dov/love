@@ -394,7 +394,9 @@ bool Window::createWindowAndContext(int x, int y, int w, int h, Uint32 windowfla
 		{
 			bool curSRGB = love::graphics::isGammaCorrect();
 
+#if 0
 			setGLFramebufferAttributes(curSRGB);
+#endif
 			setGLContextAttributes(attribs);
 
 			windowerror.clear();
